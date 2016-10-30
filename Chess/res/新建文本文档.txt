@@ -1,0 +1,11 @@
+RECT rtWnd;
+CDC *pDC;
+pDC->GetWindow()->GetWindowRect(&rtWnd);      //计算输出图像时对应的长和宽
+iWndWidth = rtWnd.right - rtWnd.left;
+iWndHeight = rtWnd.bottom - rtWnd.top;
+
+IPicture* pPic;    //pPic为指向原始图片的IPicture指针，用于输出图像
+OleLoadPicturePath(CComBSTR(FindFilePath.GetBuffer()), (LPUNKNOWN)NULL, 0, 0, IID_IPicture, (LPVOID*)&pPic);
+pPic->get_Width(&hmWidth);
+pPic->get_Height(&hmHeight);
+pPic->Render(*pDC[N], 0, 0, iWndWidth, iWndHeight, 0, hmHeight, hmWidth, -hmHeight, NULL);
